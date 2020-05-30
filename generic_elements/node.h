@@ -3,7 +3,7 @@
 
 /**
  * 
- * A simple implementation of a Node for generic objects in C++
+ * A simple implementation of a generic Node for objects in C++
  * Written by Nathan Nesbitt 2020-05-23
  * 
  * */ 
@@ -13,7 +13,6 @@ template <class T>
 class Node {
     public:
         T value; // The data in the current node //
-        Node<T> *next; // The next node //
         Node();
         Node(T new_value);
 };

@@ -12,7 +12,7 @@
 
 // Inlcude the headers for the node and linked_list object
 #include "errors.h"
-#include "node.h"
+#include "list_node.h"
 
 /* LinkedList data structure */
 template <class T>
@@ -44,7 +44,7 @@ class LinkedList {
         ~LinkedList();
         
     private:
-        struct Node<T>* startNode;
+        struct ListNode<T>* startNode;
         int size;
 
 };
@@ -61,7 +61,7 @@ LinkedList<T>::LinkedList() {
 /* Creates a link list object with one value in it */
 template <class T> 
 LinkedList<T>::LinkedList(T value) {
-    Node<T>* node = new Node<T>();
+    ListNode<T>* node = new ListNode<T>();
     node->value = value;
     node->next = nullptr;
     startNode = node;
@@ -90,7 +90,7 @@ bool LinkedList<T>::isEmpty() {
 template <class T> 
 void LinkedList<T>::add(T value, int position) {
     
-    Node<T> *node = new Node<T>(value);
+    ListNode<T> *node = new ListNode<T>(value);
     
     // If the linked list is empty, we just throw it in //
     if(size == 0) {
@@ -102,7 +102,7 @@ void LinkedList<T>::add(T value, int position) {
     if(position >= size)
         throw OutOfBounds("Index out of bounds when adding " + to_string(position));
     else {
-        Node<T> *currentNode = startNode;
+        ListNode<T> *currentNode = startNode;
         
         // Loop through until we have the node before the position //
         while(position != 1) {
@@ -125,7 +125,7 @@ template <class T>
 void LinkedList<T>::addFirst(T value) {
     
     // Create new node with pointer to head as next //
-    Node<T> *node = new Node<T>(value);
+    ListNode<T> *node = new ListNode<T>(value);
     node->next = startNode;
     
     // Reassign //
@@ -138,11 +138,11 @@ template <class T>
 void LinkedList<T>::addLast(T value) {
     
     // Create the node with null next pointer //
-    Node<T> *node = new Node<T>(value);
+    ListNode<T> *node = new ListNode<T>(value);
     node->next = nullptr;
 
     // Loop through and set the node until you are at the end //
-    Node<T> *tempnode = startNode;
+    ListNode<T> *tempnode = startNode;
     while(tempnode->next) {
         tempnode = tempnode->next;
     }
@@ -161,7 +161,7 @@ T LinkedList<T>::get(int position) {
     if(position >= size)
         throw OutOfBounds("Index out of bounds when getting at position " + to_string(position));
 
-    Node<T> *currentNode = startNode;
+    ListNode<T> *currentNode = startNode;
 
     while(position != 0) {
         currentNode = currentNode->next;
@@ -182,7 +182,7 @@ T LinkedList<T>::getFirst() {
 template <class T>
 T LinkedList<T>::getLast() {
 
-    Node<T> *currentNode = startNode;
+    ListNode<T> *currentNode = startNode;
 
     while(currentNode->next)
         currentNode = currentNode->next;
@@ -199,7 +199,7 @@ void LinkedList<T>::remove(int position) {
     if(position >= size)
         throw OutOfBounds("Index out of bounds when removing at position " + to_string(position));
     
-    Node<T> *currentNode = startNode;
+    ListNode<T> *currentNode = startNode;
 
     // If we are deleting the head we need to remap //
     if(position == 0) {
@@ -214,7 +214,7 @@ void LinkedList<T>::remove(int position) {
         }
         
         // Delete node and swap with next // 
-        Node<T>* next_node;
+        ListNode<T>* next_node;
         if(currentNode->next->next)
             next_node = currentNode->next->next;
         else
@@ -229,7 +229,7 @@ void LinkedList<T>::remove(int position) {
 /* Prints out all elements inside of the LinkedList */
 template <class T> 
 void LinkedList<T>::print() {
-    Node<T>* node = startNode;
+    ListNode<T>* node = startNode;
 
     // While the node isn't null print //
     while(node) {
@@ -242,8 +242,8 @@ void LinkedList<T>::print() {
 template <class T> 
 LinkedList<T>::~LinkedList() {
     // Create holding classes for nodes //
-    Node<T>* node = startNode;
-    Node<T>* node_next;
+    ListNode<T>* node = startNode;
+    ListNode<T>* node_next;
     // Loop through all of the nodes //
     while(node != nullptr) {
         node_next = node->next;
